@@ -1,0 +1,284 @@
+﻿@model IEnumerable<NoticiaCopia>
+@{
+    ViewBag.Title = "Home Page";
+}
+
+<div class="banner-area" id="slider-area">
+    <div id="particles-js"></div>
+    <div class="banner-table">
+        <div class="banner-table-cell">
+            <div class="welcome-text">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <h2>COVID-19 ANGOLA</h2>
+                            @*<div class="text-affect"></div>*@
+                            <p class="banner-btn"><a href="https://www.bing.com/covid" target="_blank">Ver no Mapa</a></p>
+                            <div class="clearfix"></div>
+                            <div class="mouse-icon hidden-sm hidden-xs">
+                                <div class="wheel"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--slider area ends-->
+<!--about area starts-->
+
+
+<div id="resume" class="resume-area section-padding">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="section-header">
+                    <h2>Previna-se</h2>
+                    <p class="line1"></p>
+                    <p class="line2"></p>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="timeline">
+                    <div class="wrapper right">
+                        <div class="content">
+                            <div class="education-area wow fadeInDown" data-wow-delay="0.2s">
+                                <h4>
+                                    Lave as mãos com
+                                    frequência
+                                </h4>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="wrapper right">
+                        <div class="content">
+                            <div class="education-area wow fadeInDown" data-wow-delay="0.6s">
+
+                                <h4>
+                                    Utilize
+                                    lenço
+                                    descartável
+                                    para higiene
+                                    nasal
+                                </h4>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="wrapper right">
+                        <div class="content">
+                            <div class="education-area wow fadeInDown" data-wow-delay="0.6s">
+
+                                <h4>
+                                    Não compartilhe
+                                    utensílios como
+                                    copo e talheres
+                                </h4>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="wrapper right">
+                        <div class="content">
+                            <div class="education-area wow fadeInDown" data-wow-delay="0.6s">
+
+                                <h4>
+                                    Manter o ambiente bem ventilado
+                                </h4>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="timeline">
+                    <div class="wrapper right">
+                        <div class="content">
+                            <div class="experience-area wow fadeInDown" data-wow-delay="0.4s">
+                                <h4 class="mb-2">
+                                    Cubra nariz e
+                                    boca quando
+                                    tossir
+                                    ou espirrar
+                                </h4> <!--edit here-->
+                            </div>
+                        </div>
+                    </div>
+                    <div class="wrapper right">
+                        <div class="content">
+                            <div class="experience-area wow fadeInDown" data-wow-delay="0.8s">
+                                <h4 class="mb-2">Evite toque nos olhos, nariz e boca</h4> <!--edit here-->
+                            </div>
+                        </div>
+                    </div>
+                    <div class="wrapper right">
+                        <div class="content">
+                            <div class="experience-area wow fadeInDown" data-wow-delay="0.8s">
+                                <h4 class="mb-2">
+                                    Higienize as
+                                    mão após
+                                    tossir ou
+                                    espirrar
+                                </h4> <!--edit here-->
+                            </div>
+                        </div>
+                    </div>
+                    <div class="wrapper right">
+                        <div class="content">
+                            <div class="experience-area wow fadeInDown" data-wow-delay="0.8s">
+                                <h4 class="mb-2">
+                                    Evite a proximidade
+                                    com pessoas que
+                                    apresentem sinais
+                                    ou sintomas da
+                                    doença
+                                </h4> <!--edit here-->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--about area ends-->
+<!--resume area starts-->
+<!--resume area ends-->
+<!--services area starts-->
+
+
+<div id="portfolio" class="portfolio-area section-padding">
+    <div class="container">
+        <div class="row">
+            <div class="section-header">
+                <h2>Notícias</h2>
+                <p class="line1"></p>
+                <p class="line2"></p>
+            </div>
+        </div>
+        <div class="row">
+            @foreach (var i in Model.Take(6))
+            {
+            <div class="col-sm-4 col-md-6 col-lg-4" style="height:200px">
+                <div class="gallery-items wow fadeInLeft" data-wow-delay="0.2s">
+                    <a class="" href="@i.Id">
+                        <!--edit image-->
+                        <img src="@i.Imagem" alt="portfolio image"> <!--edit image-->
+                    </a>
+
+                    <div class="gallery-text">
+                        <h2>@i.Tema</h2>
+                    </div>
+                </div>
+            </div>
+            }
+        </div>
+    </div>
+</div>
+<div id="services" class="services-area section-padding">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="section-header">
+                    <h2>Conheça o Vírus</h2>
+                    <p class="line1"></p>
+                    <p class="line2"></p>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12">
+                <div class="single-services text-center wow fadeInDown" data-wow-delay="0.2s">
+
+                    <div class="services-content">
+                        <h3>o que é a Covid-19?</h3> <!--edit the service you give-->
+                        <p>
+                            COVID-19 é o nome, atribuído pela Organização Mundial da Saúde, à doença provocada pelo novo coronavírus SARS-COV-2, que pode causar infeção respiratória grave como a pneumonia. Este vírus foi identificado pela primeira vez em humanos, no final de 2019, na cidade chinesa de Wuhan, província de Hubei, tendo sido confirmados casos em outros países.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-12">
+                <div class="single-services text-center wow fadeInDown" data-wow-delay="0.4s">
+
+                    <div class="services-content">
+                        <h3>
+                            O que são os coronavírus?
+                        </h3> <!--edit the service you give-->
+                        <p>
+                            Os coronavírus são um grupo de vírus que podem causar infeções nas pessoas. Normalmente estas infeções estão associadas ao sistema respiratório, podendo ser parecidas a uma gripe comum ou evoluir para uma doença mais grave, como pneumonia.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-12">
+                <div class="single-services text-center wow fadeInDown" data-wow-delay="0.4s">
+
+                    <div class="services-content">
+                        <h3>
+                            Porque foi dado o nome de COVID-19?
+                        </h3> <!--edit the service you give-->
+                        <p>
+                            A Organização Mundial da Saúde atribuiu o nome, COVID-19, é o nome da doença que resulta das palavras “Corona”, “Vírus” e “Doença” com indicação do ano em que surgiu (2019).
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-12">
+                <div class="single-services text-center wow fadeInDown" data-wow-delay="0.4s">
+
+                    <div class="services-content">
+                        <h3>
+                            Quais são os sinais e sintomas?
+                        </h3> <!--edit the service you give-->
+                        <p>
+                            Os sintomas mais frequentes associados à infeção pelo COVID-19 são:
+
+
+                            febre, tosse, dificuldade respiratória (ex: falta de ar),  Também pode surgir dor de garganta, corrimento nasal, dores de cabeça e/ou musculares e cansaço. Em casos mais graves, pode levar a pneumonia grave com insuficiência respiratória aguda, falência renal e de outros órgãos, e eventual morte.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--services area ends-->
+<!--portfolio area starts-->
+<!--portfolio area ends-->
+<!--testimonial area starts-->
+<!--Testimonial Area Starts-->
+
+
+<!--Testimonial Area Ends-->
+<!--testimonial area ends-->
+<!--invitation area starts-->
+
+<div class="invitation-area section-padding">
+    <div class="container">
+        <div class="row">
+            
+        </div>
+    </div>
+</div>
+
+<!--invitation area ends-->
+<!--contact area starts-->
+<!--contact area ends-->
+<!--Footer Area Starts-->
+
+<div class="footer-area">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 text-center">
+                <p>&copy; Todos os direitos reservados - Jamite Ngola </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--Footer Area Ends-->

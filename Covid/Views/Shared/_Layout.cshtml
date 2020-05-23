@@ -1,0 +1,229 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - Covid19 Angola</title>
+    @*@Styles.Render("~/Content/css")
+        @Scripts.Render("~/bundles/modernizr")*@
+    <!--========== Theme Fonts ==========-->
+
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,500,700" rel="stylesheet">
+
+    <!--Font Awesome css-->
+    <link rel="stylesheet" href="~/css/font-awesome.min.css">
+
+    <!--Bootstrap css-->
+    <link rel="stylesheet" href="~/css/bootstrap.min.css">
+
+    <!--Magnific popup css-->
+    <link rel="stylesheet" href="~/css/magnific-popup.css">
+
+    <!--Owl carousel css-->
+    <link rel="stylesheet" href="~/css/owl.carousel.css">
+    <link rel="stylesheet" href="~/css/owl.theme.default.css">
+
+    <!--Normalizer css-->
+    <link rel="stylesheet" href="~/css/normalize.css">
+
+    <!--Animate css-->
+    <link rel="stylesheet" href="~/css/animate.css">
+
+    <!--Template css-->
+    <link rel="stylesheet" href="~/css/style.css">
+
+    <!--Responsive css-->
+    <link rel="stylesheet" href="~/css/responsive.css">
+    <script src="https://api.mapbox.com/mapbox-gl-js/v1.8.1/mapbox-gl.js"></script>
+    <link href="https://api.mapbox.com/mapbox-gl-js/v1.8.1/mapbox-gl.css" rel="stylesheet" />
+</head>
+<body>
+    <!--preloader starts-->
+
+    <div class="loader_bg"><div class="loader"></div></div>
+
+    <!--preloader ends-->
+    <!--navigation area starts-->
+
+    <header class="nav-area navbar-fixed-top">
+        <div class="container">
+            <div class="row">
+                <!--main menu starts-->
+
+                <div class="col-md-12">
+                    <div class="main-menu">
+                        <div class="navbar navbar-cus">
+                            <div class="navbar-header">
+                                <a href="/" class="navbar-brand"><img style="height:40px" src="~/images/about/logo.png" /></a>
+                                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                                    <span class="sr-only">Toggle navigation</span>
+                                    <span class="icon-bar"></span>
+                                    <span class="icon-bar"></span>
+                                    <span class="icon-bar"></span>
+                                </button>
+                            </div>
+
+                            <div class="navbar-collapse collapse">
+                                <nav>
+                                    <ul class="nav navbar-nav navbar-right">
+                                        <li class="active"><a class="smooth-menu" href="#home">Início</a></li>
+                                        <li><a class="smooth-menu" href="#resume">Prevenção</a></li>
+                                        <li><a class="smooth-menu" href="#portfolio">Noticias</a></li>
+                                        <li><a class="smooth-menu" href="#services">Conheça o vírus</a></li>
+                                    </ul>
+                                </nav>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!--main menu ends-->
+            </div>
+        </div>
+    </header>
+    <div id="home"></div>
+        @RenderBody()
+<script>
+    mapboxgl.accessToken = 'pk.eyJ1IjoiamFtaXRlbmdvbGEiLCJhIjoiY2s4MXJ4a2wyMHNqdzNlcnV2Z3I2NWhhZCJ9.f9jsO_zBWLgynQvInttpvg';
+    var map = new mapboxgl.Map({
+        container: 'map',
+        style: 'mapbox://styles/mapbox/streets-v9'
+    });
+
+    var size = 200;
+
+    // implementation of CustomLayerInterface to draw a pulsing dot icon on the map
+    // see https://docs.mapbox.com/mapbox-gl-js/api/#customlayerinterface for more info
+    var pulsingDot = {
+        width: size,
+        height: size,
+        data: new Uint8Array(size * size * 4),
+
+        // get rendering context for the map canvas when layer is added to the map
+        onAdd: function () {
+            var canvas = document.createElement('canvas');
+            canvas.width = this.width;
+            canvas.height = this.height;
+            this.context = canvas.getContext('2d');
+        },
+
+        // called once before every frame where the icon will be used
+        render: function () {
+            var duration = 1000;
+            var t = (performance.now() % duration) / duration;
+
+            var radius = (size / 2) * 0.3;
+            var outerRadius = (size / 2) * 0.7 * t + radius;
+            var context = this.context;
+
+            // draw outer circle
+            context.clearRect(0, 0, this.width, this.height);
+            context.beginPath();
+            context.arc(
+                this.width / 2,
+                this.height / 2,
+                outerRadius,
+                0,
+                Math.PI * 2
+            );
+            context.fillStyle = 'rgba(255, 200, 200,' + (1 - t) + ')';
+            context.fill();
+
+            // draw inner circle
+            context.beginPath();
+            context.arc(
+                this.width / 2,
+                this.height / 2,
+                radius,
+                0,
+                Math.PI * 2
+            );
+            context.fillStyle = 'rgba(255, 100, 100, 1)';
+            context.strokeStyle = 'white';
+            context.lineWidth = 2 + 4 * (1 - t);
+            context.fill();
+            context.stroke();
+
+            // update this image's data with data from the canvas
+            this.data = context.getImageData(
+                0,
+                0,
+                this.width,
+                this.height
+            ).data;
+
+            // continuously repaint the map, resulting in the smooth animation of the dot
+            map.triggerRepaint();
+
+            // return `true` to let the map know that the image was updated
+            return true;
+        }
+    };
+
+    map.on('load', function () {
+        map.addImage('pulsing-dot', pulsingDot, { pixelRatio: 2 });
+
+        map.addSource('points', {
+            'type': 'geojson',
+            'data': {
+                'type': 'FeatureCollection',
+                'features': [
+                    {
+                        'type': 'Feature',
+                        'geometry': {
+                            'type': 'Point',
+                            'coordinates': [0, 0]
+                        }
+                    }
+                ]
+            }
+        });
+        map.addLayer({
+            'id': 'points',
+            'type': 'symbol',
+            'source': 'points',
+            'layout': {
+                'icon-image': 'pulsing-dot'
+            }
+        });
+    });
+</script>
+    <!--Latest version JQuery-->
+    <script src="~/js/jquery-3.2.1.min.js"></script>
+
+    <!--Bootstrap js-->
+    <script src="~/js/bootstrap.min.js"></script>
+
+    <!--Magnific popup js-->
+    <script src="~/js/jquery.magnific-popup.js"></script>
+
+    <!--Owl Carousel js-->
+    <script src="~/js/owl.carousel.js"></script>
+
+    <!--Mixitup js-->
+    <script src="~/js/wow.min.js"></script>
+
+    <!--Owl Carousel js-->
+    <script src="~/js/owl.carousel.js"></script>
+
+    <!--Typed js-->
+    <script src="~/js/typed.js"></script>
+
+    <!--particle js-->
+    <script src="~/js/particles.js"></script>
+    <script src="~/js/app.js"></script>
+
+    <!--Validator js-->
+    <script src="~/js/validator.js"></script>
+
+    <!--Contact js-->
+    <script src="~/js/contact.js"></script>
+
+    <!--Main js-->
+    <script src="~/js/main.js"></script>
+    @*@Scripts.Render("~/bundles/jquery")
+        @Scripts.Render("~/bundles/bootstrap")*@
+    @RenderSection("scripts", required: false)
+</body>
+</html>
